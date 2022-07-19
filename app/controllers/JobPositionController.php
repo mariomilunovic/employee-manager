@@ -90,10 +90,11 @@ class JobPositionController
         if(isset($_POST['id']) && trim($_POST['id']) !== "")
         {                  
             $id=$_POST['id'];
+            $location = '/jobpositions/edit?id='.$id; 
         }  
         else
         {            
-            header('location:/jobpositions');
+            
             $_SESSION["msg"]='Something went wrong!';
             exit;
         }  
@@ -104,7 +105,7 @@ class JobPositionController
         }  
         else
         {            
-            header('location:/jobpositions/create');
+            header("location:$location");
             $_SESSION["msg"]='Please enter valid name!';
             exit;
         }     
@@ -115,7 +116,7 @@ class JobPositionController
         }  
         else
         {            
-            header('location:/jobpositions/create');
+            header("location:$location");
             $_SESSION["msg"]='Please enter valid salary!';
             exit;
         }         
@@ -135,7 +136,7 @@ class JobPositionController
 
             } catch (\PDOException $e) {
             
-                header('location:/jobpositions/create');
+                header("location:$location");
                 $_SESSION["msg"]='Database error!';
                 exit;
 

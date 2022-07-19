@@ -18,6 +18,7 @@ CREATE TABLE employees
   email VARCHAR(255) UNIQUE NOT NULL,
   degree VARCHAR(255) NOT NULL,
   phone VARCHAR(255) NOT NULL,
+  salary INT NULL,
   jobposition_id INT UNSIGNED NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (jobposition_id) REFERENCES jobpositions(id)
@@ -33,20 +34,20 @@ INSERT INTO jobpositions (name, salary)  VALUES  ("Junior Frontend Developer", "
 INSERT INTO jobpositions (name, salary)  VALUES  ("Senior React Developer", "1500");
 
 
-INSERT INTO employees (name, surname, degree, email, phone, jobposition_id)
-  VALUES  ("David", "Gilmour", "Doctor", "david@safemail.com", "+381232323", "1");
+INSERT INTO employees (name, surname, degree, email, phone, salary, jobposition_id)
+  VALUES  ("David", "Gilmour", "Doctor", "david@safemail.com", "+381232323",900, "1");
 
-INSERT INTO employees (name, surname, degree, email, phone, jobposition_id)
-  VALUES  ("Steve", "Vai", "Master", "steve@safemail.com", "+381343434", "2");
+INSERT INTO employees (name, surname, degree, email, phone, salary, jobposition_id)
+  VALUES  ("Steve", "Vai", "Master", "steve@safemail.com", "+381343434",3500, "2");
 
-INSERT INTO employees (name, surname, degree, email, phone, jobposition_id)
-  VALUES  ("Jimi", "Hendrix", "Master", "jimi@safemail.com", "+381565656", "3");
+INSERT INTO employees (name, surname, degree, email, phone, salary, jobposition_id)
+  VALUES  ("Jimi", "Hendrix", "Master", "jimi@safemail.com", "+381565656",1100, "3");
 
-INSERT INTO employees (name, surname, degree, email, phone, jobposition_id)
-  VALUES  ("Mark", "Knopfler", "Bachelor", "mark@safemail.com", "+381898989", "4");
+INSERT INTO employees (name, surname, degree, email, phone, salary, jobposition_id)
+  VALUES  ("Mark", "Knopfler", "Bachelor", "mark@safemail.com", "+381898989",NULL, "4");
 
-INSERT INTO employees (name, surname, degree, email, phone, jobposition_id)
-  VALUES  ("Kurt", "Cobain", "Associate", "kurt@safemail.com", "+381676767", "5");
+INSERT INTO employees (name, surname, degree, email, phone, salary, jobposition_id)
+  VALUES  ("Kurt", "Cobain", "Associate", "kurt@safemail.com", "+381676767",1500, "5");
 
-INSERT INTO employees (name, surname, degree, email, phone, jobposition_id)
-  VALUES  ("Carlos", "Santana", "Doctor", "carlos@safemail.com", "+381999999", "2");
+INSERT INTO employees (name, surname, degree, email, phone, salary, jobposition_id)
+  VALUES  ("Carlos", "Santana", "Doctor", "carlos@safemail.com", "+381999999", NULL, "2");

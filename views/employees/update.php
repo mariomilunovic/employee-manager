@@ -21,6 +21,9 @@
     <label for="phone">Change phone</label><br>
     <input name="phone" type="text" value="<?php echo $employee->phone ?>"> <br><br>
 
+    <label for="salary">Change salary</label><br>
+    <input name="salary" type="text" value="<?php echo $employee->salary ?>"> <br><br>
+
     <select name="jobposition_id" id="jobposition_id">
 
         <?php

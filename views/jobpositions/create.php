@@ -4,10 +4,10 @@
 
 <form action="/jobpositions/create" method="POST">
 
-    <label for="name">Enter name</label><br>
+    <label for="name">Enter name (required)</label><br>
     <input name="name" type="text"> <br><br>
 
-    <label for="salary">Enter salary</label><br>
+    <label for="salary">Enter salary (required)</label><br>
     <input name="salary" type="text"> <br><br>   
 
     <button class="green_button" type="submit">Confirm</button>

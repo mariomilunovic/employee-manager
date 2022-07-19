@@ -21,11 +21,22 @@ class EmployeeController
         {
             $db = DB::getInstance();
 
-            $query = 'SELECT e.id, e.name, e.surname,e.degree,e.email,e.phone,j.id 
-            as jobposition_id, j.name as job,j.salary 
-            FROM employees e 
-                LEFT JOIN jobpositions j
-                    ON e.jobposition_id = j.id';
+            $query = 'SELECT    e.id,
+                                e.name,
+                                e.surname,
+                                e.degree,
+                                e.email,
+                                e.phone,
+                                e.salary,
+                                j.id as jobposition_id,
+                                j.name as jobposition_name,
+                                j.salary as jobposition_salary 
+
+                      FROM employees e 
+
+                        LEFT JOIN jobpositions j
+
+                            ON e.jobposition_id = j.id';
             
             $statement_employee = $db->pdo->query($query);
        
@@ -39,6 +50,7 @@ class EmployeeController
                 $employee->degree = $row_employee['degree'];
                 $employee->email = $row_employee['email'];
                 $employee->phone = $row_employee['phone'];
+                $employee->salary = $row_employee['salary'];
 
                 $jobposition = new JobPosition();
 
@@ -46,8 +58,8 @@ class EmployeeController
                 if ($row_employee['jobposition_id'])
                 {            
                     $jobposition->id = $row_employee['jobposition_id'];
-                    $jobposition->name = $row_employee['job'];
-                    $jobposition->salary = $row_employee['salary'];       
+                    $jobposition->name = $row_employee['jobposition_name'];
+                    $jobposition->salary = $row_employee['jobposition_salary'];       
                 }
            
                 $employee->jobposition = $jobposition; 
@@ -87,9 +99,9 @@ class EmployeeController
 
         $statement_jobposition = $db->pdo->query($query);
        
+        //get array of JobPosition objects
         while ($row_jobposition = $statement_jobposition->fetch())
-        {
-    
+        {    
             $jobposition = new jobposition();            
             $jobposition->id = $row_jobposition['id'];
             $jobposition->name = $row_jobposition['name'];
@@ -108,6 +120,7 @@ class EmployeeController
         // echo '</pre>';
         // exit;
 
+        //basic data validation
         if(isset($_POST['name']) && trim($_POST['name']) !== "")
         {                  
             $name=$_POST['name'];
@@ -163,16 +176,42 @@ class EmployeeController
             exit;
         } 
 
-        if(isset($_POST['jobposition_id']) && trim($_POST['jobposition_id']) !== "")
-        {                  
-            $jobposition_id=$_POST['jobposition_id'];
+        if(isset($_POST['salary']))
+        {     
+            if(trim($_POST['salary']) !== "")
+            {
+                if(is_numeric($_POST['salary'])) 
+                {
+                    $salary=$_POST['salary'];
+                }
+                else
+                {
+                    header('location:/employees/create');
+                    $_SESSION["msg"]='Please enter valid salary or leave field empty!';
+                    exit;
+                }
+            }
+            else
+            {
+                $salary="";
+            }
         }  
-        else
-        {            
-            header('location:/employees/create');
-            $_SESSION["msg"]='Please enter valid phone!';
-            exit;
-        } 
+        
+
+        if(isset($_POST['jobposition_id']) && trim($_POST['jobposition_id']) !== "")
+        {      
+            $jobposition_id=$_POST['jobposition_id']; 
+
+            if($jobposition_id == 'empty')
+            {
+                header('location:/employees/create');
+                $_SESSION["msg"]='Job position must be selected!';
+                exit;
+
+            }    
+            
+        }  
+        
 
         if ($name!=="" && $surname!=="" && $degree!=="" && $email!=="" && $phone!=="" && $jobposition_id!=="")
         {
@@ -180,14 +219,15 @@ class EmployeeController
 
                 $db = DB::getInstance();
                 $statement = $db->pdo->prepare("INSERT INTO
-                 employees (name, surname, degree, email, phone, jobposition_id) 
-                 VALUES (:name, :surname, :degree, :email, :phone, :jobposition_id)");
+                 employees (name, surname, degree, email, phone, salary, jobposition_id) 
+                 VALUES (:name, :surname, :degree, :email, :phone, :salary, :jobposition_id)");
                 $statement->execute([
                     'name'=>$name,
                     'surname'=>$surname,
                     'degree'=>$degree, 
                     'email'=>$email, 
                     'phone'=>$phone,  
+                    'salary'=>$salary, 
                     'jobposition_id'=>$jobposition_id
                 ]);
 
@@ -201,9 +241,6 @@ class EmployeeController
             header('location:/employees');
             $_SESSION["msg"]='Employee is successfully created!';
         }     
-
-
-
 
     }
 
@@ -230,6 +267,7 @@ class EmployeeController
             $employee->degree = $row['degree'];
             $employee->email = $row['email'];
             $employee->phone = $row['phone'];
+            $employee->salary = $row['salary'];
             $employee->jobposition_id = $row['jobposition_id'];
 
             //get all job positions
@@ -245,16 +283,11 @@ class EmployeeController
                 $jobpositions[]=$jobposition;
             }
 
-
         } catch (\PDOException $e) {
             header('location:/employees/edit');
             $_SESSION["msg"]='Database error!';
             exit;
         }    
-
-        // echo '<pre>';
-        // print_r($jobpositions);
-        // echo '</pre>';
 
         echo (new View('employees/update',['employee'=>$employee],['jobpositions'=>$jobpositions]))->render();
     }
@@ -268,13 +301,14 @@ class EmployeeController
         // echo '</pre>';
         // exit;
 
-
         if(isset($_POST['id']) && trim($_POST['id']) !== "")
         {                  
             $id=$_POST['id'];
+            $location = '/employees/edit?id='.$id; 
         }  
         else
         {            
+            
             header('location:/employees/create');
             $_SESSION["msg"]='Something went wrong! Try again.';
             exit;
@@ -285,8 +319,9 @@ class EmployeeController
             $name=$_POST['name'];
         }  
         else
-        {            
-            header('location:/employees/create');
+        {       
+              
+            header("location:$location");
             $_SESSION["msg"]='Please enter valid name!';
             exit;
         }     
@@ -297,7 +332,7 @@ class EmployeeController
         }  
         else
         {            
-            header('location:/employees/create');
+            header("location:$location");
             $_SESSION["msg"]='Please enter valid surname!';
             exit;
         }  
@@ -308,7 +343,7 @@ class EmployeeController
         }  
         else
         {            
-            header('location:/employees/create');
+            header("location:$location");
             $_SESSION["msg"]='Please enter valid degree!';
             exit;
         } 
@@ -319,7 +354,7 @@ class EmployeeController
         }  
         else
         {            
-            header('location:/employees/create');
+            header("location:$location");
             $_SESSION["msg"]='Please enter valid email!';
             exit;
         } 
@@ -330,10 +365,31 @@ class EmployeeController
         }  
         else
         {            
-            header('location:/employees/create');
+            header("location:$location");
             $_SESSION["msg"]='Please enter valid phone!';
             exit;
         } 
+
+        if(isset($_POST['salary']))
+        {     
+            if(trim($_POST['salary']) !== "")
+            {
+                if(is_numeric($_POST['salary'])) 
+                {
+                    $salary=$_POST['salary'];
+                }
+                else
+                {
+                    header("location:$location");
+                    $_SESSION["msg"]='Please enter valid salary or leave field empty!';
+                    exit;
+                }
+            }
+            else
+            {
+                $salary=null;
+            }
+        }  
 
         if(isset($_POST['jobposition_id']) && trim($_POST['jobposition_id']) !== "")
         {                  
@@ -341,8 +397,8 @@ class EmployeeController
         }  
         else
         {            
-            header('location:/employees/create');
-            $_SESSION["msg"]='Please enter valid phone!';
+            header("location:$location");
+            $_SESSION["msg"]='Please enter valid job position!';
             exit;
         } 
 
@@ -358,6 +414,7 @@ class EmployeeController
                     degree=:degree,
                     email=:email,
                     phone=:phone,
+                    salary=:salary,
                     jobposition_id=:jobposition_id
                     WHERE id=:id
                 ");
@@ -368,13 +425,14 @@ class EmployeeController
                     'surname'=>$surname,
                     'degree'=>$degree, 
                     'email'=>$email, 
-                    'phone'=>$phone,  
+                    'phone'=>$phone, 
+                    'salary'=>$salary,  
                     'jobposition_id'=>$jobposition_id
                 ]);
 
             } catch (\PDOException $e) {
             
-                header('location:/employees/create');
+                header("location:$location");
                 $_SESSION["msg"]=$e->getMessage();
                 exit;
 
@@ -406,8 +464,7 @@ class EmployeeController
             $employee->degree = $row['degree'];
             $employee->email = $row['email'];
             $employee->phone = $row['phone'];
-                    
-
+                 
         } catch (\PDOException $e) {
 
             $message = $e->getMessage();

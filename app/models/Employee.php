@@ -11,5 +11,6 @@
         public string $degree;
         public string $email;
         public string $phone;
+        public ?int $salary;
         public JobPosition $jobposition;     
     }
