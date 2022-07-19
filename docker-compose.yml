@@ -1,0 +1,68 @@
+# start with: docker-compose up -d
+# application is at http://localhost:8001/
+# phpmyadmin is at http://localhost:8002/
+
+version: "3.8"
+
+networks:
+    employee-manager:
+
+services:
+
+    # App Server
+    apache:
+        container_name: employee-manager
+        build:
+            context: ./docker
+            dockerfile: apache.dockerfile
+        environment:
+            - APACHE_RUN_USER=#1000
+            - APACHE_RUN_GROUP=#1000
+        ports:
+            - 8001:80
+        volumes:
+            - .:/var/www/html/employee_manager
+            - ./docker/php.ini:/usr/local/etc/php/php.ini
+        networks:
+            - employee-manager
+
+    # Database Server
+    mysql:
+        image: mysql:8.0
+        container_name: mysql
+        restart: unless-stopped
+        ports:
+            - ${DB_PORT}:${DB_PORT}
+        environment:
+            # automatically creates database and user
+            - MYSQL_ALLOW_EMPTY_PASSWORD=1
+            - MYSQL_DATABASE=${DB_DATABASE}
+            - MYSQL_USER=${DB_USERNAME}
+            - MYSQL_PASSWORD=${DB_PASSWORD}
+            - MYSQL_ROOT_PASSWORD=root_password
+        volumes:
+            - db-employee-manager:/var/lib/mysql
+        networks:
+            - employee-manager
+
+    # Database GUI Server
+    phpmyadmin:
+        image: phpmyadmin:5.2-apache
+        container_name: phpmyadmin
+        restart: unless-stopped
+        ports:
+            - 8002:80
+        depends_on:
+            - mysql
+        environment:
+            # automatically logs in given user
+            - PMA_HOST=mysql
+            - PMA_PORT=${DB_PORT}
+            - PMA_USER=root
+            - PMA_PASSWORD=root_password
+        networks:
+            - employee-manager
+
+  
+volumes:
+    db-employee-manager:

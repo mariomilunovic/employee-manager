@@ -1,0 +1,24 @@
+DROP TABLE IF EXISTS employees;
+DROP TABLE IF EXISTS jobpositions;
+
+
+CREATE TABLE jobpositions
+(
+  id INT UNSIGNED AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  salary INT NOT NULL,
+  PRIMARY KEY (id) 
+);
+
+CREATE TABLE employees
+(
+  id INT UNSIGNED AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  surname VARCHAR(255) NOT NULL,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  degree VARCHAR(255) NOT NULL,
+  phone VARCHAR(255) NOT NULL,
+  jobposition_id INT UNSIGNED NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (jobposition_id) REFERENCES jobpositions(id)
+);

@@ -1,0 +1,25 @@
+INSERT INTO jobpositions (name, salary)  VALUES  ("Junior PHP Developer", "1000");
+INSERT INTO jobpositions (name, salary)  VALUES  ("Senior PHP Developer", "2000");
+INSERT INTO jobpositions (name, salary)  VALUES  ("Junior Java Developer", "1500");
+INSERT INTO jobpositions (name, salary)  VALUES  ("Senior Java Developer", "2500");
+INSERT INTO jobpositions (name, salary)  VALUES  ("Dev Ops Engineer", "1500");
+INSERT INTO jobpositions (name, salary)  VALUES  ("Database Engineer", "1500");
+INSERT INTO jobpositions (name, salary)  VALUES  ("Junior Frontend Developer", "1500");
+INSERT INTO jobpositions (name, salary)  VALUES  ("Senior React Developer", "1500");
+
+
+INSERT INTO employees (name, surname, degree, email, phone, jobposition_id)
+  VALUES  ("David", "Gilmour", "Doctor", "david@safemail.com", "+381232323", "1");
+
+INSERT INTO employees (name, surname, degree, email, phone, jobposition_id)
+  VALUES  ("Steve", "Vai", "Master", "steve@safemail.com", "+381343434", "2");
+
+INSERT INTO employees (name, surname, degree, email, phone, jobposition_id)
+  VALUES  ("Jimi", "Hendrix", "Master", "jimi@safemail.com", "+381565656", "3");
+
+INSERT INTO employees (name, surname, degree, email, phone, jobposition_id)
+  VALUES  ("Mark", a"Knopfler", "Bachelor", "mark@safemail.com", "+381898989", "4");
+
+INSERT INTO employees (name, surname, degree, email, phone, jobposition_id)
+  VALUES  ("Kurt", "Cobain", "Associate", "kurt@safemail.com", "+381676767", "5");
+
