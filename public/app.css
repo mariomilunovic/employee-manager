@@ -1,48 +1,127 @@
 * {
   font-family: sans-serif; /* Change your font family */
+  box-sizing: border-box; 
 }
 
+
+
 /* navbar style */
+.topnav {
+  overflow: hidden;
+  background-color: #000000;
+  border-radius: 10px;
+  
+}
 
-#navbar ul { 
-  margin: 0; 
-  padding: 5px; 
-  list-style-type: none; 
-  text-align: left; 
-  background-color: #000; 
-} 
+/* Navbar links */
+.topnav a {
+  float: left;
+  display: block;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  padding: 18px 22px;
+  text-decoration: none;
+  font-size: 17px;
+}
 
-#navbar ul li {  
-  display: inline; 
-} 
+/* Navbar links on mouse-over */
+.topnav a:hover {
+  background-color: rgb(0, 56, 177);
+  color: rgb(255, 255, 255);
+}
 
-#navbar ul li a { 
-  text-decoration: none; 
-  padding: .2em 1em; 
-  color: #fff; 
-  background-color: #000; 
-} 
+/* Active/current link */
+.topnav a.active {
+  background-color: #2196F3;
+  color: white;
+}
 
-#navbar ul li a:hover { 
-  color: #000; 
-  background-color: #fff; 
-} 
+/* Style the input container */
+.topnav .search-container {
+  float: right;
+}
+
+/* Style the input field inside the navbar */
+.topnav input[type=text] {
+  border-radius: 5px 0px 0px 5px;
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: none;
+}
+
+/* Style the button inside the input container */
+.topnav .search-container button {
+  border-radius: 0px 5px 5px 0px;
+  
+  float: right;
+  padding: 6px 10px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: rgb(221, 221, 221);
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
+.topnav .search-container button:hover {
+  background: #ccc;
+}
+
+/* Add responsiveness - On small screens, display the navbar vertically instead of horizontally */
+@media screen and (max-width: 600px) {
+  .topnav .search-container {
+    float: none;
+  }
+  .topnav a, .topnav input[type=text], .topnav .search-container button {
+    float: none;
+    border-radius: 0px;
+    display: block;
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    padding: 14px;
+  }
+  .topnav input[type=text] {
+    border-radius: 0px;
+    border: 1px solid #ccc;
+  }
+}
 
 
 /* form style */
 
-input,select{ 
-  width: 30%;
-  color: rgb(36, 35, 42);
-  font-size: 16px;
-  line-height: 20px;
-  min-height: 28px;
+.styled-input{ 
+  
+  padding: 6px 10px;
+  width: 20%;
+  margin-top: 2px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1  ;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  appearance: none;
   border-radius: 4px;
-  padding: 8px 16px;
-  border: 2px solid transparent;
-  box-shadow: rgb(0 0 0 / 12%) 0px 1px 3px, rgb(0 0 0 / 24%) 0px 1px 2px;
-  background: rgb(255, 255, 255);
-  transition: all 0.1s ease 0s;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out; 
+  
+}
+
+.styled-input:focus{
+  color: #212529;
+  background-color: #fff;
+  border-color: #86b7fe;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
+}
+
+label {
+  font-size: small;
+  padding-top: 10px;
+  
 }
 
 
@@ -87,19 +166,20 @@ input,select{
   color: #686868;
 }
 
+
 /* button style */
 .blue_button {
   display: inline-block;
   text-decoration: none;
   outline: 0;
   cursor: pointer;
-  padding: 5px 16px;
+  padding: 5px 10px;
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;
   vertical-align: middle;
   border: 1px solid;
-  border-radius: 6px;
+  border-radius: 10px;
   color: #ffffff;
   background-color: #156aaf;
   border-color: #1b1f2326;
@@ -112,13 +192,13 @@ input,select{
   text-decoration: none;
   outline: 0;
   cursor: pointer;
-  padding: 5px 16px;
+  padding: 5px 10px;
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;
   vertical-align: middle;
   border: 1px solid;
-  border-radius: 6px;
+  border-radius: 10px;
   color: #ffffff;
   background-color: #c20f0f;
   border-color: #1b1f2326;
@@ -131,13 +211,13 @@ input,select{
   text-decoration: none;
   outline: 0;
   cursor: pointer;
-  padding: 5px 16px;
+  padding: 5px 10px;
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;
   vertical-align: middle;
   border: 1px solid;
-  border-radius: 6px;
+  border-radius: 10px;
   color: #ffffff;
   background-color: #04c02d;
   border-color: #1b1f2326;

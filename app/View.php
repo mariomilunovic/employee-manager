@@ -30,7 +30,7 @@
 
                 //page layout
                 include_once '../views/components/header.php';
-                include_once '../views/components/nav.php';
+                include_once '../views/components/navbar.php';
                 include_once '../views/components/message.php';
 
                 include $viewPath;

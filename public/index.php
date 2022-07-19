@@ -7,6 +7,7 @@ define('VIEW_PATH', __DIR__.'/../views');
 use App\View;
 use App\Router;
 use App\controllers\PageController;
+use App\controllers\SearchController;
 use App\controllers\DatabaseController;
 use App\controllers\EmployeeController;
 use App\controllers\JobPositionController;
@@ -53,7 +54,10 @@ try
         ->post('/jobpositions/update',[JobPositionController::class,'update'])
         ->get('/jobpositions/delete',[JobPositionController::class,'delete'])
         ->get('/jobpositions/destroy',[JobPositionController::class,'destroy'])
-        
+
+        //Search Routes
+        ->post('/search',[SearchController::class,'search'])
+                
         ;
 
         

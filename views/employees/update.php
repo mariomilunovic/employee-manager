@@ -7,24 +7,24 @@
     <input name="id" type="hidden" value="<?php echo $employee->id ?>"> 
 
     <label for="name">Change name</label><br>
-    <input name="name" type="text" value="<?php echo $employee->name ?>"> <br><br>
+    <input class="styled-input" name="name" type="text" value="<?php echo $employee->name ?>"> <br><br>
 
     <label for="surname">Change surname</label><br>
-    <input name="surname" type="text" value="<?php echo $employee->surname ?>"> <br><br>
+    <input class="styled-input" name="surname" type="text" value="<?php echo $employee->surname ?>"> <br><br>
 
     <label for="degree">Change degree</label><br>
-    <input name="degree" type="text" value="<?php echo $employee->degree ?>"> <br><br>
+    <input class="styled-input" name="degree" type="text" value="<?php echo $employee->degree ?>"> <br><br>
 
     <label for="email">Change email</label><br>
-    <input name="email" type="text" value="<?php echo $employee->email ?>"> <br><br>
+    <input class="styled-input" name="email" type="text" value="<?php echo $employee->email ?>"> <br><br>
 
     <label for="phone">Change phone</label><br>
-    <input name="phone" type="text" value="<?php echo $employee->phone ?>"> <br><br>
+    <input class="styled-input" name="phone" type="text" value="<?php echo $employee->phone ?>"> <br><br>
 
     <label for="salary">Change salary</label><br>
-    <input name="salary" type="text" value="<?php echo $employee->salary ?>"> <br><br>
+    <input class="styled-input" name="salary" type="text" value="<?php echo $employee->salary ?>"> <br><br>
 
-    <select name="jobposition_id" id="jobposition_id">
+    <select class="styled-input" name="jobposition_id" id="jobposition_id">
 
         <?php
             foreach($jobpositions as $jobposition)

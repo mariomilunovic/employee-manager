@@ -8,10 +8,10 @@
     <input name="id" type="hidden" value="<?php echo $jobposition->id ?>"> 
 
     <label for="name">Change name</label><br>
-    <input name="name" type="text" value="<?php echo $jobposition->name ?>"> <br><br>
+    <input class="styled-input" name="name" type="text" value="<?php echo $jobposition->name ?>"> <br><br>
 
     <label for="salary">Change salary</label><br>
-    <input name="salary" type="text" value="<?php echo $jobposition->salary ?>"> <br><br>
+    <input class="styled-input" name="salary" type="text" value="<?php echo $jobposition->salary ?>"> <br><br>
 
     <button class="green_button" type="submit">Confirm Update</button>
 

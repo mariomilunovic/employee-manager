@@ -1,10 +1,6 @@
 <?php
 
-declare (strict_types=1);
-
 namespace App\controllers;
-
-// require_once '/var/www/html/employee_manager/app/models/Employee.php';
 
 use App\View;
 use App\database\DB;
@@ -13,7 +9,6 @@ use App\models\JobPosition;
 
 class EmployeeController
 {
-
     public function index()
     {
         $employees = [];
@@ -80,15 +75,6 @@ class EmployeeController
             
     }
 
-                 
-        
-
-
-    public function show()
-    {
-        
-    }
-
     public function create()
     {
         $jobpositions = [];
@@ -115,20 +101,16 @@ class EmployeeController
 
     public function store()
     {
-        // echo '<pre>';
-        // print_r ($_POST);
-        // echo '</pre>';
-        // exit;
-
-        //basic data validation
+       
+        // basic data validation
         if(isset($_POST['name']) && trim($_POST['name']) !== "")
         {                  
             $name=$_POST['name'];
         }  
         else
-        {            
-            header('location:/employees/create');
+        {     
             $_SESSION["msg"]='Please enter valid name!';
+            $this->create();
             exit;
         }     
         
@@ -138,8 +120,8 @@ class EmployeeController
         }  
         else
         {            
-            header('location:/employees/create');
             $_SESSION["msg"]='Please enter valid surname!';
+            $this->create();
             exit;
         }  
         
@@ -149,8 +131,8 @@ class EmployeeController
         }  
         else
         {            
-            header('location:/employees/create');
             $_SESSION["msg"]='Please enter valid degree!';
+            $this->create();
             exit;
         } 
 
@@ -160,8 +142,8 @@ class EmployeeController
         }  
         else
         {            
-            header('location:/employees/create');
             $_SESSION["msg"]='Please enter valid email!';
+            $this->create();
             exit;
         } 
 
@@ -171,8 +153,8 @@ class EmployeeController
         }  
         else
         {            
-            header('location:/employees/create');
             $_SESSION["msg"]='Please enter valid phone!';
+            $this->create();
             exit;
         } 
 
@@ -186,8 +168,8 @@ class EmployeeController
                 }
                 else
                 {
-                    header('location:/employees/create');
                     $_SESSION["msg"]='Please enter valid salary or leave field empty!';
+                    $this->create();
                     exit;
                 }
             }
@@ -204,10 +186,9 @@ class EmployeeController
 
             if($jobposition_id == 'empty')
             {
-                header('location:/employees/create');
                 $_SESSION["msg"]='Job position must be selected!';
+                $this->create();
                 exit;
-
             }    
             
         }  
@@ -233,8 +214,8 @@ class EmployeeController
 
             } catch (\PDOException $e) {
             
-                header('location:/employees/create');
                 $_SESSION["msg"]=$e->getMessage();
+                $this->create();
                 exit;
 
             }
@@ -296,11 +277,7 @@ class EmployeeController
 
     public function update()
     {
-        // echo '<pre>';
-        // print_r ($_POST);
-        // echo '</pre>';
-        // exit;
-
+        
         if(isset($_POST['id']) && trim($_POST['id']) !== "")
         {                  
             $id=$_POST['id'];
@@ -467,7 +444,7 @@ class EmployeeController
                  
         } catch (\PDOException $e) {
 
-            $message = $e->getMessage();
+            $_SESSION["msg"] = $e->getMessage();
         }
         
         echo (new View('employees/delete',['employee'=>$employee]))->render();

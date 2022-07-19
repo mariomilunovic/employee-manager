@@ -6,12 +6,10 @@ use App\View;
 use App\database\DB;
 use App\models\JobPosition;
 
-
 class JobPositionController
 {
     public function index()
     {
-
         $jobpositions = [];
 
         try
@@ -23,10 +21,7 @@ class JobPositionController
             $statement = $db->pdo->query($query);
        
             while ($row = $statement->fetch())
-            {
-                // echo $row['id'];
-                // echo $row['name'];
-           
+            {                
                 $jobposition = new JobPosition();
                 $jobposition->id = $row['id'];
                 $jobposition->name = $row['name'];
@@ -43,12 +38,7 @@ class JobPositionController
         }
 
         echo (new View('jobpositions/index',['jobpositions'=>$jobpositions]))->render();        
-    }
-
-    public function show()
-    {
-
-    }
+    }   
 
     public function create()
     {
@@ -78,8 +68,7 @@ class JobPositionController
             header('location:/jobpositions/edit');
             $_SESSION["msg"]='Database error!';
             exit;
-        }
-     
+        }     
 
         echo (new View('jobpositions/update',['jobposition'=>$jobposition]))->render();
     }
@@ -93,8 +82,7 @@ class JobPositionController
             $location = '/jobpositions/edit?id='.$id; 
         }  
         else
-        {            
-            
+        {    
             $_SESSION["msg"]='Something went wrong!';
             exit;
         }  
@@ -156,8 +144,9 @@ class JobPositionController
         }  
         else
         {            
-            header('location:/jobpositions/create');
+           
             $_SESSION["msg"]='Please enter valid name!';
+            $this->create();
             exit;
         }     
         
@@ -166,9 +155,9 @@ class JobPositionController
             $salary=$_POST['salary'];
         }  
         else
-        {            
-            header('location:/jobpositions/create');
+        {    
             $_SESSION["msg"]='Please enter valid salary!';
+            $this->create();
             exit;
         }         
 
