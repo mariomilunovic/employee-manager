@@ -101,6 +101,10 @@ class EmployeeController
 
     public function store()
     {
+        echo '<pre>';
+        print_r($_POST);
+        echo '</pre>';        
+        exit;
        
         // basic data validation
         if(isset($_POST['name']) && trim($_POST['name']) !== "")
@@ -175,7 +179,7 @@ class EmployeeController
             }
             else
             {
-                $salary="";
+                $salary=null;
             }
         }  
         

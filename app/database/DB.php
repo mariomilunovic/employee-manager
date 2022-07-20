@@ -4,8 +4,8 @@ namespace App\database;
 
 class DB 
 {
-    public const DSN = "mysql:host=mysql;dbname=employee-manager;charset=utf8mb4";
-    public const DB_USER = 'employee-manager';
+    public const DSN = "mysql:host=mysql;dbname=employee_manager;charset=utf8mb4";
+    public const DB_USER = 'employee_manager';
     public const DB_PASSWORD = 'secret';           
     public const DB_OPTIONS = [
         \PDO::ATTR_ERRMODE            => \PDO::ERRMODE_EXCEPTION,
