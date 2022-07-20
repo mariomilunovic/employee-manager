@@ -12,7 +12,7 @@ App can be easily tested in docker environment with provided docker configuratio
 After docker command:
 docker-compose up -d
 
-application is on:
+application is at:
 http://localhost:8001/
 
 phpMyAdmin is at:
